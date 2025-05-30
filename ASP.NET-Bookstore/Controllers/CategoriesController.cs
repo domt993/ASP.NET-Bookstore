@@ -9,10 +9,10 @@ namespace ASP.NET_Bookstore.Controllers
         public IActionResult Index()
         {
             // Use the category model to generate 10 categories in memory for display in the view
-            var categories = new List<Categories>();
+            var categories = new List<Category>();
             for (int i = 1; i <= 10; i++)
             {
-                categories.Add(new Categories
+                categories.Add(new Category
                 {
                     CategoryId = i,
                     Name = "Category " + i

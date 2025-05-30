@@ -10,6 +10,6 @@ namespace ASP.NET_Bookstore.Data
             : base(options)
         {
         }
-        public DbSet<ASP.NET_Bookstore.Models.Categories> Categories { get; set; } = default!;
+        public DbSet<ASP.NET_Bookstore.Models.Category> Categories { get; set; } = default!;
     }
 }
