@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace ASP.NET_Bookstore.Models
 {
@@ -33,7 +34,7 @@ namespace ASP.NET_Bookstore.Models
 
 
         // Navigation property: each detail is for one order (mandatory from the detail side)
-
+        [ValidateNever]
         public Order Order { get; set; } = null!;
 
 
@@ -47,7 +48,7 @@ namespace ASP.NET_Bookstore.Models
 
 
         // Navigation property: each detail is for one book (mandatory from the detail side)
-
+        [ValidateNever]
         public Book Book { get; set; } = null!;
 
     }
