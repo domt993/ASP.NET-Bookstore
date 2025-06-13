@@ -57,11 +57,23 @@ namespace ASP.NET_Bookstore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookId,Author,Title,Image,Price,MatureContent,CategoryId")] Book book)
+        public async Task<IActionResult> Create([Bind("BookId,Author,Title,Price,MatureContent,CategoryId")] Book book, IFormFile? image)
         {
             if (ModelState.IsValid)
             {
+                // Check if an image file is provided
+                if (image != null && image.Length > 0)
+                {
+                    // Upload the image and set the Image property
+                    book.Image = UploadImage(image);
+                }
+                else
+                {
+                    // If no image is provided, set Image to null
+                    book.Image = null;
+                }
                 _context.Add(book);
+                // Save the book to the database
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -159,6 +171,21 @@ namespace ASP.NET_Bookstore.Controllers
         private bool BookExists(int id)
         {
             return _context.Books.Any(e => e.BookId == id);
+        }
+
+        private static string UploadImage(IFormFile image)
+        {
+            // use globally unique identifier (GUID) to create a unique file name
+            //e.g. 123e4567-e89b-12d3-a456-426614174000-book-cover.jpg
+            var fileName = Guid.NewGuid().ToString() + "-" + image.FileName;
+            // define the path dynamically so it runs on any machine
+            var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/books", fileName);
+            using (var stream = new FileStream(uploadPath, FileMode.Create))
+            {
+                image.CopyTo(stream);
+            }
+            // return the file name to be stored in the database
+            return fileName;
         }
     }
 }

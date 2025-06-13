@@ -45,7 +45,15 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                @if (!string.IsNullOrEmpty(item.Image)) // or item.Image != null && item.Image != string.Empty
+                {
+                    <img src="@Url.Content("~/images/books/" + item.Image)" alt="@item.Title" class="book-image-index"/>
+                }
+                else {
+                    
+                       <img src="~/images/books/bookcover-placeholder.jpg" alt="@item.Title" class="book-image-index" />
+                }
+                @* @Html.DisplayFor(modelItem => item.Image) *@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
