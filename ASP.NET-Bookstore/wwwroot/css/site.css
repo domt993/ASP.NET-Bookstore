@@ -4,7 +4,7 @@ html {
 
 @media (min-width: 768px) {
     html {
-        font-size: 16px;
+    font-size: 16px;
     }
 }
 
@@ -40,10 +40,10 @@ body {
     transition: transform 0.2s;
 }
 
-    .featured-books .card:hover {
-        transform: translateY(-5px) scale(1.03);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    }
+.featured-books .card:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
 /* Home/Index.cshtml */
 
 /* header and footer */
@@ -62,11 +62,11 @@ body {
     color: #fff !important;
 }
 
-    .main-header .nav-link.active,
-    .main-header .nav-link:focus,
-    .main-header .nav-link:hover {
-        color: #C5CAE9 !important;
-    }
+.main-header .nav-link.active,
+.main-header .nav-link:focus,
+.main-header .nav-link:hover {
+    color: #C5CAE9 !important;
+}
 
 .main-footer {
     background-color: #C5CAE9;
@@ -74,14 +74,14 @@ body {
     padding: 1rem 0;
 }
 
-    .main-footer a {
-        color: #3F51B5;
-    }
+.main-footer a {
+    color: #3F51B5;
+}
 
-        .main-footer a:hover {
-            color: #303f9f;
-            text-decoration: underline;
-        }
+.main-footer a:hover {
+    color: #303f9f;
+    text-decoration: underline;
+}
 
 /* Book image */
 .book-image-index {
