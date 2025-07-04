@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ASP.NET_Bookstore.Data;
+using ASP.NET_Bookstore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ASP.NET_Bookstore.Data;
-using ASP.NET_Bookstore.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ASP.NET_Bookstore.Controllers
 {
+    // If the user is logged in, they can access this controller
+    [Authorize(Roles = "Administrator")]
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,7 +28,7 @@ namespace ASP.NET_Bookstore.Controllers
             var applicationDbContext = _context.Books.Include(b => b.Category).OrderBy(b => b.Author).ThenBy(b => b.Title);
             return View(await applicationDbContext.ToListAsync());
         }
-
+        [AllowAnonymous]
         // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -103,7 +106,7 @@ namespace ASP.NET_Bookstore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookId,Author,Title,Image,Price,MatureContent,CategoryId")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("BookId,Author,Title,Price,MatureContent,CategoryId")] Book book, IFormFile? image, string? CurrentImage)
         {
             if (id != book.BookId)
             {
@@ -114,6 +117,20 @@ namespace ASP.NET_Bookstore.Controllers
             {
                 try
                 {
+                    // Check if an image file is provided
+                    if (image != null && image.Length > 0)
+                    {
+                        // Upload the image and set the Image property
+                        book.Image = UploadImage(image);
+                    }
+                    else
+                    {
+                        if (CurrentImage != null)
+                        {
+                            // If no image is provided, keep the current image
+                            book.Image = CurrentImage;
+                        }
+                    }
                     _context.Update(book);
                     await _context.SaveChangesAsync();
                 }

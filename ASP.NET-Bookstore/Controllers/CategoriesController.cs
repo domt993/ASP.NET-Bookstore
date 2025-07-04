@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASP.NET_Bookstore.Data;
 using ASP.NET_Bookstore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASP.NET_Bookstore.Controllers
 {
+    // If the user is logged in, they can access this controller
+    [Authorize(Roles = "Administrator")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,7 +27,8 @@ namespace ASP.NET_Bookstore.Controllers
         {
             return View(await _context.Categories.ToListAsync());
         }
-
+        // Allow anonymous users to access the Details action
+        [AllowAnonymous]
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
