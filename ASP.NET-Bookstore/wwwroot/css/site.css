@@ -64,10 +64,10 @@ html, body {
     transition: transform 0.2s;
 }
 
-.featured-books .card:hover {
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-}
+    .featured-books .card:hover {
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
 
 .main-footer {
     background-color: #C5CAE9;
@@ -98,6 +98,7 @@ html, body {
     border-radius: 0.3rem;
 }
 
+
 /* Styles for the Shop/Index.cshtml and ShopByCategory.cshtml pages */
 .card-body > a {
     -webkit-text-decoration: none;
@@ -126,4 +127,11 @@ html, body {
     transform: translateY(-6px) scale(1.03);
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
     background: #f0f8ff;
+}
+
+/* add some custom CSS for cart-images */
+.cart-images {
+    max-width: 80px;
+    max-height: 100px;
+    object-fit: cover;
 }
